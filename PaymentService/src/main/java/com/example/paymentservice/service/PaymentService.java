@@ -23,4 +23,8 @@ public class PaymentService {
     public String paymentProcessing() {
         return new Random().nextBoolean() ? "success" : "failure";
     }
+
+    public Payment findPaymentHistoryByOrderId(int payment_id) {
+       return paymentRepo.findById(payment_id).get();
+    }
 }
