@@ -1,0 +1,10 @@
+
+//http://localhost:8090/order/bookOrder*
+{
+  "order": {
+    "order_name": "TV",
+    "order_qty": "4",
+    "order_price": "90000"
+  },
+  "payment": {}
+}
