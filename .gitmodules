@@ -1,0 +1,3 @@
+[submodule "PaymentService"]
+	path = PaymentService
+	url = https://github.com/akaulage/TestRepo.git
