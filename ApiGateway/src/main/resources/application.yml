@@ -1,18 +1,28 @@
 spring:
   application:
     name: Api-Gateway
-  cloud:
+  cloud:     #Api gateway configuration
     gateway:
       routes:
         - id: order-service
           uri: lb://ORDER-SERVICE
           predicates:
             - Path=/order/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                  - name: order-service
+                  - fallbackuri: forward:/orderFallBack
         - id: payment-service
           uri: lb://PAYMENT-SERVICE
           predicates:
           - Path=/payment/**
-eureka:
+          filters:        # for circuit breaker configuration
+            - name: CircuitBreaker
+              args:
+                - name: payment-service
+                - fallbackuri: forward:/paymentFallBack
+eureka:  #Register with eureka server configuration
   client:
     register-with-eureka: true
     fetch-registry: true
@@ -22,3 +32,20 @@ eureka:
     hostname: localhost
 server:
   port: 8093
+
+#enable Hystrix endpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+
