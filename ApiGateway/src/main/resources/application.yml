@@ -5,23 +5,41 @@ spring:
     gateway:
       routes:
         - id: order-service
-          uri: lb://ORDER-SERVICE
+          uri: lb://Order-Service
           predicates:
             - Path=/order/**
           filters:
             - name: CircuitBreaker
               args:
-                  - name: order-service
-                  - fallbackuri: forward:/orderFallBack
+                  name: order-service
+                  fallbackuri: forward:/orderFallBack
         - id: payment-service
-          uri: lb://PAYMENT-SERVICE
+          uri: lb://Payment-Service
           predicates:
           - Path=/payment/**
           filters:        # for circuit breaker configuration
             - name: CircuitBreaker
               args:
-                - name: payment-service
-                - fallbackuri: forward:/paymentFallBack
+                 name: payment-service
+                 fallbackuri: forward:/paymentFallBack
+server:
+  port: 8093
+
+#enable Hystrix endpoint (To evaluvate the fallbackStream)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+#timeout 5 second
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
 eureka:  #Register with eureka server configuration
   client:
     register-with-eureka: true
@@ -30,22 +48,8 @@ eureka:  #Register with eureka server configuration
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
-server:
-  port: 8093
 
-#enable Hystrix endpoint
-management:
-  endpoints:
-    web:
-      exposure:
-        include: hystrix.stream
 
-hystrix:
-  command:
-    fallbackcmd:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+
 
 
