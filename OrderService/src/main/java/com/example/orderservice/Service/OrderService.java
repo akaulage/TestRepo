@@ -6,18 +6,27 @@ import com.example.orderservice.common.Payment;
 import com.example.orderservice.common.TransactionRequest;
 import com.example.orderservice.common.TransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
 @Service
+@RefreshScope
 public class OrderService {
     @Autowired
-    OrderRepo orderRepo;
+    private OrderRepo orderRepo;
+
 
     @Autowired
-    RestTemplate restTemplate;
+    @Lazy
+    private RestTemplate restTemplate;
+
+   /* @Value("${microservice.payment-service.endpoints.endpoint.uri}")
+    private String ENDPOINT_URL;*/
 
     public Order getOrderById(int id) {
 

@@ -6,6 +6,7 @@ import com.example.orderservice.common.Payment;
 import com.example.orderservice.common.TransactionRequest;
 import com.example.orderservice.common.TransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,8 @@ import java.awt.print.Book;
 public class OrderController {
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
+
 
 
     @PostMapping("/bookOrder")

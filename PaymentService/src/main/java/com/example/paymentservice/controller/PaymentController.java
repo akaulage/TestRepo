@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
     @Autowired
-    PaymentService paymentService;
+    private PaymentService paymentService;
 
     @PostMapping("/dopayment")
     public Payment doPayment(@RequestBody Payment payment) {

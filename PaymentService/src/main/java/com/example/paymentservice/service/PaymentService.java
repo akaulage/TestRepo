@@ -12,7 +12,7 @@ import java.util.UUID;
 public class PaymentService {
 
     @Autowired
-    PaymentRepo paymentRepo;
+    private PaymentRepo paymentRepo;
 
     public Payment doPayment(Payment payment) {
         payment.setTransaction_id(UUID.randomUUID().toString());
