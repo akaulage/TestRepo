@@ -25,8 +25,8 @@ public class OrderService {
     @Lazy
     private RestTemplate restTemplate;
 
-   /* @Value("${microservice.payment-service.endpoints.endpoint.uri}")
-    private String ENDPOINT_URL;*/
+    @Value("${microservice.payment-service.endpoints.endpoint.uri}")
+    private String ENDPOINT_URL;
 
     public Order getOrderById(int id) {
 
@@ -47,7 +47,7 @@ public class OrderService {
         //Payment paymentResponse=restTemplate.postForObject("http://localhost:8091/payment/dopayment",payment,Payment.class);
 
         //instead of giving full url give the application name
-        Payment paymentResponse = restTemplate.postForObject("http://Payment-Service/payment/dopayment", payment, Payment.class);
+        Payment paymentResponse = restTemplate.postForObject(ENDPOINT_URL, payment, Payment.class);
 
         message = paymentResponse.getStatus().equals("success") ? "Payment done successfully" : "Payment failure";
 

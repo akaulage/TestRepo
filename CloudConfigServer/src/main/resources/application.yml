@@ -8,8 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/akaulage/cloud-config-server
           clone-on-start: true
+          uri: https://github.com/akaulage/TestRepo   #https://github.com/akaulage/TestRepo/blob/master/application.yml
 
 eureka:  #Register with eureka server configuration
   client:
